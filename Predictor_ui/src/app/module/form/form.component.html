@@ -1,0 +1,61 @@
+<div class="main">
+  <div class="title">
+    <mat-icon>date_range</mat-icon>
+    <span>Predictor</span>
+  </div>
+
+  <div class="form-sec">
+    <form [formGroup]="countForm">
+      <div class="form-row">
+        <!-- <mat-form-field appearance="outline"> -->
+        <img class="image" mat-card-image src="../../../assets/image.png" />
+        <!-- </mat-form-field> -->
+
+        <mat-form-field appearance="outline">
+          <mat-label>Start Date</mat-label>
+          <input
+            formControlName="startDate"
+            matInput
+            [matDatepicker]="picker"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>count</mat-label>
+          <input formControlName="count" matInput type="number" />
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <section>
+          <mat-checkbox formControlName="isExcludeWeekends"
+            >Exclude Weekends</mat-checkbox
+          >
+          <mat-checkbox formControlName="isExcludeHolidays"
+            >Exclude Holidays</mat-checkbox
+          >
+        </section>
+      </div>
+    </form>
+
+    <div class="btn-row">
+      <button
+        mat-raised-button
+        (click)="generate()"
+        [disabled]="!btnEnable"
+        color="primary"
+      >
+        Generate
+      </button>
+    </div>
+
+    <div class="result">
+      <span>{{ result }}</span>
+    </div>
+  </div>
+</div>
