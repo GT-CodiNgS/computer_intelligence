@@ -75,3 +75,20 @@
   align-items: center !important;
   height: 15px;
 }
+
+.custom-snackbar-succes {
+  background-color: green !important;
+  color: white !important;
+}
+
+.mat-mdc-snack-bar-container-error {
+  --mat-mdc-snack-bar-button-color: #ffffff;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mdc-snackbar-container-color: #f23a2f;
+}
+
+.mat-mdc-snack-bar-container-success {
+  --mat-mdc-snack-bar-button-color: #ffffff;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mdc-snackbar-container-color: #43a446;
+}
