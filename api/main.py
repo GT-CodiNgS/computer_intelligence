@@ -1,6 +1,4 @@
 from flask_cors import CORS  # Import CORS from flask_cors
-from textblob import TextBlob
-import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle, re, nltk
 from nltk.stem import WordNetLemmatizer
@@ -12,7 +10,7 @@ nltk.download('wordnet')
 
 
 app = Flask(__name__)
-CORS(app)  # Use CORS with the app
+CORS(app)  
 with open("disClassifier.pkl", 'rb') as f:
     classifier = pickle.load(f)
 with open("tfidf.pkl", 'rb') as f:
