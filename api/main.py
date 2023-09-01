@@ -42,10 +42,12 @@ def get_label(result):
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    text = request.form['tweet']
+    data = request.get_json()
+    print(data)
+    text = data['tweet']
     result = predict_result(text, lemmatizer, tfidf, classifier)
     label = get_label(result)
-    return label
+    return jsonify({'prediction': label})
 
 
 if __name__ == '__main__':

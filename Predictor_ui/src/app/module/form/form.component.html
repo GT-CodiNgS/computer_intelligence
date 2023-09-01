@@ -1,45 +1,22 @@
 <div class="main">
   <div class="title">
-    <mat-icon>date_range</mat-icon>
-    <span>Predictor</span>
+    <mat-icon>timeline</mat-icon>
+    <span>Disaster Tweets Classification</span>
   </div>
 
   <div class="form-sec">
-    <form [formGroup]="countForm">
+    <form [formGroup]="tweetForm">
       <div class="form-row">
         <!-- <mat-form-field appearance="outline"> -->
-        <img class="image" mat-card-image src="../../../assets/image.png" />
+        <img class="image" mat-card-image src="../../../assets/image.jpg" />
         <!-- </mat-form-field> -->
-
         <mat-form-field appearance="outline">
-          <mat-label>Start Date</mat-label>
-          <input
-            formControlName="startDate"
-            matInput
-            [matDatepicker]="picker"
-          />
-          <mat-datepicker-toggle
-            matIconSuffix
-            [for]="picker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+          <mat-label>tweet</mat-label>
+          <input formControlName="tweet" matInput type="text" />
+          <mat-error *ngIf="tweetForm.get('tweet')?.hasError('required')">
+            Tweet is required!
+          </mat-error>
         </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>count</mat-label>
-          <input formControlName="count" matInput type="number" />
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <section>
-          <mat-checkbox formControlName="isExcludeWeekends"
-            >Exclude Weekends</mat-checkbox
-          >
-          <mat-checkbox formControlName="isExcludeHolidays"
-            >Exclude Holidays</mat-checkbox
-          >
-        </section>
       </div>
     </form>
 
@@ -50,7 +27,7 @@
         [disabled]="!btnEnable"
         color="primary"
       >
-        Generate
+        Predict
       </button>
     </div>
 
