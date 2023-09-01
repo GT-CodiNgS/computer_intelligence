@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CounterService } from '../../core/service/counter.service';
+import { PredictService } from '../../core/service/predict.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CountDTO } from '../../core/dto/CountDTO';
-import axios from 'axios';
-import * as moment from 'moment';
+import { TweetDto } from 'src/app/core/dto/TweetDto';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-form',
@@ -11,53 +10,54 @@ import * as moment from 'moment';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit {
-  countForm!: FormGroup;
+  tweetForm!: FormGroup;
   result: any;
   btnEnable: boolean = true;
-  dateFinal: any;
-
+  tweet: string = '';
+  HORIZONTAL_POSITION: any = 'right';
+  VERTICAL_POSITION: any = 'top';
+  DURATION: any = 3000;
   constructor(
-    private counterService: CounterService,
-    private formBuilder: FormBuilder
+    private predictService: PredictService,
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    this.countForm = this.formBuilder.group({
-      startDate: ['', Validators.required],
-      count: ['', Validators.required],
-      isExcludeWeekends: [false, Validators.required],
-      isExcludeHolidays: [false, Validators.required],
+    this.tweetForm = this.formBuilder.group({
+      tweet: ['', Validators.required],
     });
   }
 
   async generate() {
     this.btnEnable = false;
     this.result = null;
-
-    this.dateFinal = moment(this.countForm.get('startDate')?.value);
-    this.dateFinal = this.dateFinal.format('YYYY-MM-DD');
-
-    const countDTO = new CountDTO(
-      this.dateFinal,
-      this.countForm.get('count')?.value,
-      'LK',
-      this.countForm.get('isExcludeWeekends')?.value,
-      this.countForm.get('isExcludeHolidays')?.value
-    );
-
-    await axios
-      .post('http://localhost:5000/hello')
-      .then((response) => {
-        if (response && response.data) {
-          this.result = response.data;
-          this.btnEnable = true;
-        } else {
-          console.error('Invalid response received. Response:', response);
-        }
-      })
-      .catch((error) => {
-        console.error('API call failed:', error);
+    if (this.tweetForm.valid) {
+      const data: TweetDto = {
+        tweet: JSON.stringify(this.tweetForm.get('tweet')?.value) || '',
+      };
+      this.predictService.generate(data).subscribe((response: any) => {
+        this.result = response.prediction;
+        this.snackBar.open('Prediction Successfully.', '', {
+          duration: this.DURATION,
+          horizontalPosition: this.HORIZONTAL_POSITION,
+          verticalPosition: this.VERTICAL_POSITION,
+          politeness: 'assertive',
+          panelClass: ['mat-mdc-snack-bar-container-success'],
+        });
       });
+
+      this.btnEnable = true;
+    } else {
+      this.snackBar.open('Please fill required fields.', '', {
+        duration: this.DURATION,
+        horizontalPosition: this.HORIZONTAL_POSITION,
+        verticalPosition: this.VERTICAL_POSITION,
+        // politeness: 'assertive',
+        panelClass: ['mat-mdc-snack-bar-container-error'],
+      });
+    }
+
     this.btnEnable = true;
   }
 }
