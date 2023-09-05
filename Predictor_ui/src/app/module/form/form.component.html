@@ -1,7 +1,7 @@
 <div class="main">
   <div class="title">
-    <mat-icon>timeline</mat-icon>
-    <span>Disaster Tweets Classification</span>
+    <mat-icon style="color: rgb(253, 253, 253)">polymer</mat-icon>
+    <span [ngClass]="'bold-font'">Disaster Tweets Classification</span>
   </div>
 
   <div class="form-sec">
@@ -16,12 +16,16 @@
           <mat-error *ngIf="tweetForm.get('tweet')?.hasError('required')">
             Tweet is required!
           </mat-error>
+          <mat-error *ngIf="tweetForm.get('tweet')?.hasError('maxlength')">
+            Maximum 50 characters allowed for the tweet.
+          </mat-error>
         </mat-form-field>
       </div>
     </form>
 
-    <div class="btn-row">
+    <div class="btn-row" style="align-items: center; justify-content: center">
       <button
+        style="width: 200px"
         mat-raised-button
         (click)="generate()"
         [disabled]="!btnEnable"

@@ -25,7 +25,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.tweetForm = this.formBuilder.group({
-      tweet: ['', Validators.required],
+      tweet: ['', [Validators.required, Validators.maxLength(50)]],
     });
   }
 
