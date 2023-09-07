@@ -1,6 +1,8 @@
 # Disaster Tweets Classification
 
 A web application for classifying tweets as either "Disaster" or "Not Disaster" using machine learning.
+
+
 ![image](https://github.com/GT-CodiNgS/computer_intelligence/assets/73925625/a69045cb-11be-42cc-a6bd-d8b8ae129ec7)
 
 
