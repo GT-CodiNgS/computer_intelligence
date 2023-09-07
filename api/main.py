@@ -1,6 +1,6 @@
 from flask_cors import CORS  # Import CORS from flask_cors
 from flask import Flask, request, jsonify, render_template
-import pickle, re, nltk
+import pickle, re
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 import nltk
