@@ -23,7 +23,7 @@ Before you begin, ensure you have the following prerequisites installed on your 
 1. **Clone the repository** to your local machine:
 
     ```bash
-    git clone https://github.com/yourusername/Disaster-Tweets-Classification.git
+    git clone https://github.com/GT-CodiNgS/computer_intelligence.git
     ```
 
 2. **Navigate to the project directory**:
